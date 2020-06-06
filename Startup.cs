@@ -114,7 +114,7 @@ namespace WebApplication30
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Libary API V1");
-                c.RoutePrefix = string.Empty;
+               // c.RoutePrefix = string.Empty;
             });
         }
     }
