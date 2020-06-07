@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace WebApplication30.Models.JwtToken
@@ -16,6 +17,7 @@ namespace WebApplication30.Models.JwtToken
         private string audience = "";
         private Dictionary<string, string> claims = new Dictionary<string, string>();
         private int expiryInMinutes = 5;
+        
 
         public JwtTokenBuilder AddSecurityKey(SecurityKey securityKey)
         {
@@ -70,13 +72,16 @@ namespace WebApplication30.Models.JwtToken
             }
             .Union(this.claims.Select(item => new Claim(item.Key, item.Value)));
 
+            //var KeyBytearray = Encoding.ASCII.GetBytes("cf5856e9-b49d-4de4-bf64-934255140301");
+            //var signingKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(KeyBytearray);
+
             var token = new JwtSecurityToken(
                               issuer: this.issuer,
                               audience: this.audience,
                               claims: claims,
                               expires: DateTime.UtcNow.AddMinutes(expiryInMinutes),
                               signingCredentials: new SigningCredentials(
-                                                        this.securityKey,
+                                                        securityKey,
                                                         SecurityAlgorithms.HmacSha256));
 
             return new JwtToken(token);

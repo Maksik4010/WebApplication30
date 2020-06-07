@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,7 @@ using WebApplication30.Repositories;
 
 namespace WebApplication30.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     public class BookController : ControllerBase
     {
@@ -23,7 +25,8 @@ namespace WebApplication30.Controllers
         }
 
         // Methods
-
+        [Authorize(ActiveAuthenticationSchemes = "Bearer")]
+       //[Authorize]
         [HttpGet]
         [Route("Book")]
         public ActionResult Get()

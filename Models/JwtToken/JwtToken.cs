@@ -20,5 +20,6 @@ namespace WebApplication30.Models.JwtToken
         {
             this.token = token;
         }
+        
     }
 }
