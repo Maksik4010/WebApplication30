@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +10,7 @@ using WebApplication30.Repositories;
 
 namespace WebApplication30.Controllers
 {
+    [ApiController]
     public class BookController : ControllerBase
     {
         // Propertis 
@@ -18,7 +21,9 @@ namespace WebApplication30.Controllers
         {
             Books = book;
         }
+
         // Methods
+
         [HttpGet]
         [Route("Book")]
         public ActionResult Get()
@@ -27,7 +32,8 @@ namespace WebApplication30.Controllers
             return Ok(result);
         }
 
-        [HttpGet()]
+        [HttpGet]
+        //[Authorize]
         [Route("Book/{id}")]
         public ActionResult Get(Guid id)
         {
@@ -35,20 +41,23 @@ namespace WebApplication30.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+       
+        [HttpPut]
         [Route("Book")]
-        public void Post([FromBody] Book book)
+        public void Put([FromBody] Book book)
         {
             Books.Update(book);
         }
 
-        [HttpPut]
-        [Route("Enemy")]
-        public void Put([FromBody] Book book)
+       
+        [HttpPost]
+        [Route("Book")]
+        public void Post([FromBody] Book book)
         {
             Books.Create(book);
         }
 
+       
         [HttpDelete()]
         [Route("Book/{id}")]
         public void Delete(Guid id)

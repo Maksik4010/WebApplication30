@@ -11,8 +11,8 @@ namespace WebApplication30.Service.Implementation
     public class GlobalUserService : IGlobalUserService
     {
         // Consts
-        public const string GmailAccountEmail = "pokemonmaster@interia.pl";
-        public const string GmailAccountPassword = "Pokemonki123!";
+        public const string GmailAccountEmail = "hahaha@hahaha.pl";
+        public const string GmailAccountPassword = "Test1123!";
 
         // Services
         public AppUserManager UserManager { get; set; }

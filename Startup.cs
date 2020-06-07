@@ -3,20 +3,27 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.HttpSys;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using WebApplication30.Data;
 using WebApplication30.Data.Managers;
 using WebApplication30.Models;
+using WebApplication30.Models.JwtToken;
 using WebApplication30.Repositories;
 using WebApplication30.Service.Contract;
 using WebApplication30.Service.Implementation;
@@ -53,15 +60,17 @@ namespace WebApplication30
                 .AddUserManager<AppUserManager>()
                 .AddRoleManager<AppRoleManager>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
+    
             // Repositories
-            //services.AddTransient<CustomObjectRepository>();
+            services.AddTransient<BookReposiotry>();
             //services.AddTransient<EnemiesRepository>();
             //services.AddTransient<TotemsRepository>();
 
             // Seevices
             services.AddTransient<IAppRoleService, AppRoleService>();
             services.AddTransient<IGlobalUserService, GlobalUserService>();
+
+           
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -114,7 +123,6 @@ namespace WebApplication30
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Libary API V1");
-               // c.RoutePrefix = string.Empty;
             });
         }
     }

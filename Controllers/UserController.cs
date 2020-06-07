@@ -12,7 +12,7 @@ using WebApplication30.Models.Parameters;
 
 namespace WebApplication30.Controllers
 {
-    [AllowAnonymous]
+    
     public class UserController : ControllerBase
     {
         // Properties
@@ -26,6 +26,7 @@ namespace WebApplication30.Controllers
 
         // Methods
         [HttpPost]
+        [AllowAnonymous]
         [Route("User/Token")]
         public async Task<IActionResult> Login([FromBody]Models.Parameters.LoginModel inputModel)
         {
@@ -62,6 +63,7 @@ namespace WebApplication30.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("User/Create")]
         public async Task<ActionResult> Create([FromBody]CreateUserModel model)
         {
